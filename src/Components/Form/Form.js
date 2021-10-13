@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import { BlankPhonebook, Input, Button, Label } from "./Form.styles";
-import contactsActions from "../../redux/contacts/contacts-actions";
 
-function Form({ onSubmit }) {
+export const Form = ({ onSubmit }) => {
   const [name, setName] = useState("");
   const [number, setNumber] = useState("");
 
@@ -32,7 +31,12 @@ function Form({ onSubmit }) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    onSubmit(name, number);
+    const newContact = {
+      name: name,
+      number: number,
+    };
+
+    onSubmit(newContact);
     reset();
   };
 
@@ -65,10 +69,8 @@ function Form({ onSubmit }) {
       <Button>Add contact</Button>
     </BlankPhonebook>
   );
-}
+};
 
-const mapDispatchToProps = (dispatch) => ({
-  onSubmit: (name, number) => dispatch(contactsActions.add(name, number)),
-});
-
-export default connect(null, mapDispatchToProps)(Form);
+Form.propTypes = {
+  onSubmit: PropTypes.func,
+};
