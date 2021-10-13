@@ -9,7 +9,9 @@ const add = createAction("contacts/add", (name, number) => ({
   },
 }));
 
-const remove = createAction("contacts/remove");
+const remove = createAction("contacts/remove", (id) => ({
+  payload: id,
+}));
 
 const filter = createAction("contacts/filter");
 
